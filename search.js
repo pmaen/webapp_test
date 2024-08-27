@@ -5,11 +5,25 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             const searchInput = document.getElementById('searchInput');
             const results = document.getElementById('results');
+            const database = document.getElementById('database');
 
-            // Filter and display results
+            // Function to display the entire database
+            function displayDatabase() {
+                database.innerHTML = ''; // Clear the database display
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.name}: ${item.description} (${item.category})`;
+                    database.appendChild(li);
+                });
+            }
+
+            // Display the entire database on page load
+            displayDatabase();
+
+            // Filter and display search results
             searchInput.addEventListener('input', function() {
                 const query = searchInput.value.toLowerCase();
-                results.innerHTML = '';
+                results.innerHTML = ''; // Clear the search results
 
                 const filteredData = data.filter(item => {
                     return item.name.toLowerCase().includes(query) ||
@@ -29,4 +43,3 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 });
-
